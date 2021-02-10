@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JFrame;
-
 import entities.Entity;
 import entities.Player;
 import graficos.Spritesheet;
 import graficos.UI;
 import world.TuboGenerator;
+//import world.World;
+//import world.World;
 
 public class Game extends Canvas implements Runnable,KeyListener,MouseListener,MouseMotionListener{
 
@@ -36,6 +37,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 
 	public static List<Entity> entities;
 	public static Spritesheet spritesheet;
+//	public static Spritesheet spriteWorld;
+//	public static World world;
 	public static Player player;
 	
 	public UI ui;
@@ -54,6 +57,8 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		//Inicializando objetos.
 		spritesheet = new Spritesheet("/spritesheet.png");
+//		spriteWorld = new Spritesheet("/background.png");
+//		world = new World();
 		entities = new ArrayList<Entity>();
 		player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
 		tuboGenerator = new TuboGenerator();
@@ -104,18 +109,18 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 	}
 	
-
-
-	
 	public void render(){
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
 			this.createBufferStrategy(3);
 			return;
 		}
+		
 		Graphics g = image.getGraphics();
 		g.setColor(new Color(122,102,255));
 		g.fillRect(0, 0,WIDTH,HEIGHT);
+		
+//		world.render(g);
 		
 		/*Renderização do jogo*/
 		//Graphics2D g2 = (Graphics2D) g;
