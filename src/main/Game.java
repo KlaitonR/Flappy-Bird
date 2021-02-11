@@ -33,11 +33,17 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 	
+	public static int cont;
+	public static int frames;
+	
 	private BufferedImage image;
+	private BufferedImage worldScene1;
+	private BufferedImage worldScene2;
 
 	public static List<Entity> entities;
 	public static Spritesheet spritesheet;
-//	public static Spritesheet spriteWorld;
+	public static Spritesheet spriteWorld1;
+	public static Spritesheet spriteWorld2;
 //	public static World world;
 	public static Player player;
 	
@@ -57,13 +63,15 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		
 		//Inicializando objetos.
 		spritesheet = new Spritesheet("/spritesheet.png");
-//		spriteWorld = new Spritesheet("/background.png");
+		spriteWorld1 = new Spritesheet("/background1.png");
+		spriteWorld2 = new Spritesheet("/background2.png");
 //		world = new World();
 		entities = new ArrayList<Entity>();
 		player = new Player(WIDTH/2 - 30,HEIGHT/2,16,16,2,spritesheet.getSprite(0,0,16,16));
 		tuboGenerator = new TuboGenerator();
 		ui = new UI();
-		
+		worldScene1 = spriteWorld1.getSprite(0, 0, 240, 160);
+		worldScene2 = spriteWorld2.getSprite(0, 0, 240, 160);
 		entities.add(player);
 		
 	}
@@ -120,7 +128,22 @@ public class Game extends Canvas implements Runnable,KeyListener,MouseListener,M
 		g.setColor(new Color(122,102,255));
 		g.fillRect(0, 0,WIDTH,HEIGHT);
 		
-//		world.render(g);
+		cont++;
+		if(cont == 3) {
+			cont = 0;
+			frames--;
+		}
+		
+		if(frames == -480)
+			frames = 0;
+		
+//		System.out.println(frames);
+		
+		g.drawImage(worldScene1, frames, 0, null);
+		g.drawImage(worldScene2, frames +  WIDTH, 0, null);
+		
+		if(frames < -240)
+			g.drawImage(worldScene1, frames + (WIDTH*2), 0, null);
 		
 		/*Renderização do jogo*/
 		//Graphics2D g2 = (Graphics2D) g;

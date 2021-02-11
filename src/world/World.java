@@ -14,6 +14,8 @@ public class World {
 //	public static BufferedImage BACKGROUND = Game.spritesheet.getSprite(0, 0, 240, 150);
 	
 	public static void restartGame(){
+		Game.cont = 0;
+		Game.frames = 0;
 		Game.score = 0;
 		Game.player.cont = 0;
 		Game.player = new Player(Game.WIDTH/2 - 30,Game.HEIGHT/2,16,16,2,Game.spritesheet.getSprite(0,0,16,16));

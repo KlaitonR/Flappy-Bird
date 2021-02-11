@@ -1,8 +1,8 @@
 package entities;
 
 //import java.awt.Color;
+//import java.awt.Graphics2D;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import main.Game;
 import world.World;
@@ -11,6 +11,9 @@ public class Player extends Entity{
 	
 	public boolean isPressed;
 	public int cont;
+	
+	public BufferedImage subir;
+	public BufferedImage descer;
 	
 	public Player(int x, int y, int width, int height,double speed,BufferedImage sprite) {
 		super(x, y, width, height, speed, sprite);
@@ -25,6 +28,10 @@ public class Player extends Entity{
 		y -= masky;
 		width -= maskw;
 		height -= maskh;
+		
+		subir = Game.spritesheet.getSprite(0, 16, 16, 16);
+		descer = Game.spritesheet.getSprite(0, 32, 16, 16);
+		
 	}
 	
 	public void tick(){
@@ -41,7 +48,7 @@ public class Player extends Entity{
 			Game.score++;
 		}
 		
-		if(y > Game.WIDTH) {
+		if(y > Game.WIDTH - 80 || y < 0) {
 			World.restartGame();
 		}
 		
@@ -60,16 +67,18 @@ public class Player extends Entity{
 	
 	public void render(Graphics g) {
 		
-		Graphics2D g2 = (Graphics2D) g;
+//		Graphics2D g2 = (Graphics2D) g;
 		
 		if(!isPressed) {
-			g2.rotate(Math.toRadians(20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
-			g2.drawImage(sprite, this.getX(), this.getY(), null);
-			g2.rotate(Math.toRadians(-20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
+			g.drawImage(descer, Game.player.getX(), Game.player.getY(), null);
+//			g2.rotate(Math.toRadians(20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
+//			g2.drawImage(sprite, this.getX(), this.getY(), null);
+//			g2.rotate(Math.toRadians(-20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
 		}else {
-			g2.rotate(Math.toRadians(-20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
-			g2.drawImage(sprite, this.getX(), this.getY(), null);
-			g2.rotate(Math.toRadians(20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
+			g.drawImage(subir, Game.player.getX(), Game.player.getY(), null);
+//			g2.rotate(Math.toRadians(-20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
+//			g2.drawImage(sprite, this.getX(), this.getY(), null);
+//			g2.rotate(Math.toRadians(20), this.getX() + width/2 - maskx,this.getY() + height/2 - masky);
 		}
 		
 //		g.setColor(Color.black);
